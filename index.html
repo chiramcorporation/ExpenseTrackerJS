@@ -1,0 +1,89 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <title>ExpenseTrackerJS</title>
+  <link rel="shortcut icon" type="image/x-icon" href="favicon.png" />
+  <link rel="stylesheet" href="css/expense.css">
+</head>
+
+<body>
+  <div class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <section id="headerSection" class="header-section">
+            <h1>Chiram</h1>
+          </section>
+          <section id="leftSection" class="left-section"></section>
+        </div>
+        <div class="col-12">
+          <section id="mainSection" class="main-section">
+            <!-- Expenses File/Data Section -->
+            <h3 class="inline-link">
+              Click the Add button to Add new Expense record.
+            </h3>
+            <span class="inline-tab-space"></span>
+            <div id="expensesAddButtonForm">
+              <input type="submit" value="Add Expense" class="button button2" onclick="addExpenseClickEvent();">
+              <div id="expensesAddOpsMessage" class="success-message-box" hidden></div>
+            </div>
+          </section>
+        </div>
+        <div class="col-12">
+          <section id="mainSection" class="main-section">
+            <!-- Expenses File/Data Section -->
+            <h3 class="inline-link">
+              Choose a file to upload the Expenses data CSV.
+              <p>
+                <a href="javascript:downloadExpensesTemplate()">Download </a>
+                the Sample Template for Expenses
+              </p>
+            </h3>
+            <span class="inline-tab-space"></span>
+            <form id="expensesForm">
+              <input type="file" id="expensesUploadFile" accept=".csv">
+              <input type="submit" value="Submit" class="button button2">
+              <div id="expensesFileUploadMessage" class="success-message-box" hidden></div>
+            </form>
+            </section>
+        </div>
+        <div class="col-12">
+          <section class="main-section">
+            <h3 class="inline-link">Final Expenses after processing:</h3>
+            <input id="finalDownloadButton" type="button" value="Download" class="button" onclick="downloadFinalData();">
+            <span id="totalNumberOfExpenses">&nbsp; &nbsp; &nbsp; <b>Number Expenses: </b></span>
+            <span id="totalExpenseAmount">&nbsp; &nbsp; &nbsp; <b>Total Expense Amount: </b></span>
+            <div id="displaySection">No Records to Display</div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="popupModalContent" class="popup-modal-content">
+    <div class="popup-modal-content-body">
+      <div class="row">
+        <div class="col-12">
+          <section id="mainSection" class="main-section">
+            <!-- Expenses File/Data Section -->
+            <h2 style="color: brown">
+              Enter below details and Submit
+            </h2>
+            <span class="inline-tab-space"></span>
+            <div id="expensesAddForm">
+              Expense Date: <input id="newExpenseDate" type="date" class="form-input-box">
+              Expense Description: <input id="newExpenseDesc" type="text" class="form-input-box"><br><br>
+              Expense Amount: <input id="newExpenseAmount" type="number" min="1" max="10000000" class="form-input-box"><br><br>
+              <input type="button" value="Submit" class="button button2" onclick="submitExpenseClickEvent();">
+              <div id="expensesAddStatusMessage" class="success-message-box" hidden></div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript" src="js/expense.js"></script>
+</body>
+
+</html>
