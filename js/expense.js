@@ -196,8 +196,8 @@ function displayExepnsesData() {
   html += "</table>";
 
   displaySection.innerHTML = html;
-  totalNumberOfExpenses.innerHTML = totalNumberOfExpenses.innerHTML + "<b>" + countH + "</b>";
-  totalExpenseAmount.innerHTML = totalExpenseAmount.innerHTML + "<b>" + amountToRecover + "</b>";
+  totalNumberOfExpenses.innerHTML = "&nbsp; &nbsp; &nbsp; <b>Number Expenses: </b>" + "<b>" + countH + "</b>";
+  totalExpenseAmount.innerHTML = "&nbsp; &nbsp; &nbsp; <b>Total Expense Amount: </b>" + "<b>" + amountToRecover + "</b>";
   localStorage.setItem(STORAGE_CONST.EXPENSES_LABEL, JSON.stringify(expensesDataCacheData));
 }
 
