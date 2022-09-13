@@ -223,6 +223,7 @@ function checkWarnings() {
   if (possibleDuplicateRecords) {
     alert("There might be possible Duplicate records, please verify");
   }
+  displayExepnsesData();
 }
 
 function deleteExpenseRecord(stringfiedExpenseRec, index) {
