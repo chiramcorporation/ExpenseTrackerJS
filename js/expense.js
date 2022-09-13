@@ -123,7 +123,7 @@ function getTextLineFromExpense(item) {
 function downloadFinalData() {
   const firstLine = 'dateOfExpense,expenseDescription,expenseAmount';
   var linesData = [firstLine, ...expensesDataCacheData.map(getTextLineFromExpense)];
-  var fileName = "Expenses" + new Date().toISOString() + ".csv";
+  var fileName = "Expenses_" + new Date().toISOString() + ".csv";
   downLoadFinalFile(linesData, fileName);
 }
 
