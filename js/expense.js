@@ -174,18 +174,20 @@ function displayExepnsesData() {
   html += "<th>" + "Expense Date" + "</th>";
   html += "<th>" + "Expense Description" + "</th>";
   html += "<th>" + "Expense Amount" + "</th>";
+  html += "<th>" + " " + "</th>";
   html += "</tr>";
   var countH = 0;
   var amountToRecover = 0;
   // dateOfExpense
   // expenseDescription
   // expenseAmount
-  expensesDataCacheData.forEach(element => {
+  expensesDataCacheData.forEach((element, index) => {
     if (element != undefined && element != null && element != "") {
       html += "<tr>";
       html += "<td>" + element.dateOfExpense + "</td>";
       html += "<td>" + element.expenseDescription + "</td>";
       html += "<td>" + element.expenseAmount + "</td>";
+      html += "<td>" + "<a href='javascript:deleteExpenseRecord(" + JSON.stringify(element) + ", " + index + ")' >Delete Record</a>"  + "</td>";
 
       html += "</tr>";
       countH = countH + 1;
@@ -220,5 +222,43 @@ function hidePopupModal() {
 function checkWarnings() {
   if (possibleDuplicateRecords) {
     alert("There might be possible Duplicate records, please verify");
+  }
+}
+
+function deleteExpenseRecord(stringfiedExpenseRec, index) {
+  if (stringfiedExpenseRec) {
+    var expenseRecordDel = {};
+    var typeOfInput = typeof stringfiedExpenseRec;
+    if (typeOfInput === 'object') {
+      expenseRecordDel = stringfiedExpenseRec;
+      deleteExpenseAtIndex(expenseRecordDel, index);
+    } else if (typeOfInput === 'string') {
+      try {
+        expenseRecordDel = JSON.parse(stringfiedExpenseRec);
+        deleteExpenseAtIndex(expenseRecordDel, index);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  }
+}
+
+function deleteExpenseAtIndex(expenseRecordDel, index) {
+  var promptRes = confirm('Are you sure to delete record with Description: ' + expenseRecordDel.expenseDescription + ' on Date: ' + expenseRecordDel.dateOfExpense);
+
+  if (promptRes) {
+    if (JSON.stringify(expenseRecordDel) === JSON.stringify(expensesDataCacheData[index])) {
+      expensesDataCacheData.splice(index, 1);
+      displayExepnsesData();
+    } else {
+      var filteredRec = expensesDataCacheData.filter(element => {
+        return (expenseRecordDel.expenseDescription === element.expenseDescription &&
+          expenseRecordDel.dateOfExpense === element.dateOfExpense && expenseRecordDel.expenseAmount === element.expenseAmount);
+      });
+      if (filteredRec && filteredRec.length > 0) {
+        expensesDataCacheData.splice(expensesDataCacheData.indexOf(filteredRec[0]), 1);
+        displayExepnsesData();
+      }
+    }
   }
 }
