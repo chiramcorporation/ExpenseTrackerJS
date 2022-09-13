@@ -34,24 +34,42 @@ let expensesDataKeys = [];
     }
   }
 
-  /**
- * When ExpensesData file uploaded, will be called for loading new Expenses into
- */
+/**
+* When ExpensesData file uploaded, will be called for loading new Expenses into
+*/
 function insertNewExpenses(tempExpensesData) {
-  tempExpensesData.forEach(expenseRecord => {
-    const tempKey = '' + expenseRecord.dateOfExpense + expenseRecord.expenseDescription + expenseRecord.expenseAmount + '';
-    if (!expensesDataKeys.includes(tempKey)) {
-      expensesDataCacheData.push(expenseRecord);
-      expensesDataKeys.push(tempKey);
+  var overWriteExistingRecs = false;
+  if (!expensesDataCacheData) {
+    expensesDataCacheData = tempExpensesData;
+    expensesFileMessageEelement.innerHTML = "Successfully Uploaded Expenses Data File";
+    expensesFileMessageEelement.hidden = false;
+    expensesFileUploaded = true;
+    checkWarnings();
+  } else if (expensesDataCacheData.length > 0) {
+    overWriteExistingRecs = confirm('Would you like to over write existing records, click OK to ignore existing records and overwrite from file. Cancel to keep existing and insert records from file');
+    if (overWriteExistingRecs) {
+      expensesDataCacheData = tempExpensesData;
+      expensesFileMessageEelement.innerHTML = "Successfully Uploaded Expenses Data File";
+      expensesFileMessageEelement.hidden = false;
+      expensesFileUploaded = true;
+      checkWarnings();
     } else {
-      possibleDuplicateRecords = true;
-      expensesDataCacheData.push(expenseRecord);
+      tempExpensesData.forEach(expenseRecord => {
+        const tempKey = '' + expenseRecord.dateOfExpense + expenseRecord.expenseDescription + expenseRecord.expenseAmount + '';
+        if (!expensesDataKeys.includes(tempKey)) {
+          expensesDataCacheData.push(expenseRecord);
+          expensesDataKeys.push(tempKey);
+        } else {
+          possibleDuplicateRecords = true;
+          expensesDataCacheData.push(expenseRecord);
+        }
+      });
+      expensesFileMessageEelement.innerHTML = "Successfully Uploaded Expenses Data File";
+      expensesFileMessageEelement.hidden = false;
+      expensesFileUploaded = true;
+      checkWarnings();
     }
-  });
-  expensesFileMessageEelement.innerHTML = "Successfully Uploaded Expenses Data File";
-  expensesFileMessageEelement.hidden = false;
-  expensesFileUploaded = true;
-  checkWarnings();
+  }
 }
 
 window.onload = function() {
