@@ -7,7 +7,7 @@
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
   <link rel="shortcut icon" type="image/x-icon" href="favicon.png" />
-  <link rel="stylesheet" href="css/expense.css">
+  <link rel="stylesheet" href="css/expense_v1.css">
 </head>
 
 <body>
@@ -65,6 +65,9 @@
   </div>
   <div id="popupModalContent" class="popup-modal-content">
     <div class="popup-modal-content-body">
+      <div class="popup-modal-close-icon">
+        <span class="close-icon" onclick="cancelExpenseAdd();">X</span>
+      </div>
       <div class="row">
         <div class="col-12">
           <section id="mainSection" class="main-section">
@@ -74,9 +77,12 @@
             </h2>
             <span class="inline-tab-space"></span>
             <div id="expensesAddForm">
-              Expense Date: <input id="newExpenseDate" type="date" class="form-input-box">
-              Expense Description: <input id="newExpenseDesc" type="text" class="form-input-box"><br><br>
-              Expense Amount: <input id="newExpenseAmount" type="number" min="1" max="10000000" class="form-input-box"><br><br>
+              <!-- <label for="newExpenseDate">Expense Date: </label> -->
+              <input id="newExpenseDate" name="newExpenseDate" type="date" class="form-input-box"><br><br>
+              <!-- <label for="newExpenseDesc">Expense Description: </label> -->
+              <input placeholder="Expense Description" id="newExpenseDesc" name="newExpenseDesc" type="text" class="form-input-box"><br><br>
+              <!-- <label for="newExpenseAmount">Expense Amount: </label> -->
+              <input id="newExpenseAmount" placeholder="Expense Amount" name="newExpenseAmount" type="number" min="1" max="10000000" class="form-input-box"><br><br>
               <input type="button" value="Submit" class="button button2" onclick="submitExpenseClickEvent();">
               <div id="expensesAddStatusMessage" class="success-message-box" hidden></div>
             </div>
@@ -86,7 +92,7 @@
     </div>
   </div>
 
-  <script type="text/javascript" src="js/expense_v1.js"></script>
+  <script type="text/javascript" src="js/expense_v2.js"></script>
 </body>
 
 </html>

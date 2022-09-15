@@ -183,7 +183,11 @@ function submitExpenseClickEvent() {
     }
   });
   expensesDataCacheData.push(newExpenseObj);
-  hidePopupModal();
+  hidePopupModal(true);
+}
+
+function cancelExpenseAdd() {
+  hidePopupModal(false);
 }
 
 function displayExepnsesData() {
@@ -223,9 +227,23 @@ function displayExepnsesData() {
 
 function addExpenseClickEvent() {
   popupModalContentElement.style.display = "block";
+  const fieldElement = document.getElementById("newExpenseDate");
+  if (fieldElement != null && fieldElement != undefined) {
+    var date = new Date();
+
+    var day = date.getDate();
+    var month = date.getMonth() + 1;
+    var year = date.getFullYear();
+
+    if (month < 10) month = "0" + month;
+    if (day < 10) day = "0" + day;
+
+    var today = year + "-" + month + "-" + day;
+    fieldElement.value = today;
+  }
 }
 
-function hidePopupModal() {
+function hidePopupModal(renderDisplay) {
   const fields = ["newExpenseDate", "newExpenseDesc", "newExpenseAmount"];
   fields.forEach(field => {
     const fieldElement = document.getElementById(field);
@@ -234,7 +252,10 @@ function hidePopupModal() {
     }
   });
   popupModalContentElement.style.display = "none";
-  displayExepnsesData();
+  if (renderDisplay) {
+    displayExepnsesData();
+    // console.log("Called");
+  }
 }
 
 function checkWarnings() {
