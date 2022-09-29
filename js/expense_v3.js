@@ -39,7 +39,7 @@ let expensesDataKeys = [];
 */
 function insertNewExpenses(tempExpensesData) {
   var overWriteExistingRecs = false;
-  if (!expensesDataCacheData) {
+  if (!expensesDataCacheData || expensesDataCacheData.length == 0) {
     expensesDataCacheData = tempExpensesData;
     expensesFileMessageEelement.innerHTML = "Successfully Uploaded Expenses Data File";
     expensesFileMessageEelement.hidden = false;
@@ -124,7 +124,7 @@ function downloadFinalData() {
   const firstLine = 'dateOfExpense,expenseDescription,expenseAmount';
   var linesData = [firstLine, ...expensesDataCacheData.map(getTextLineFromExpense)];
   var fileName = "Expenses_" + new Date().toISOString() + ".csv";
-  downLoadFinalFile(linesData, fileName);
+  return downLoadFinalFile(linesData, fileName);
 }
 
 function downloadExpensesTemplate() {
@@ -148,6 +148,7 @@ function downLoadFinalFile(rows, fileName) {
   document.body.appendChild(link); // Required for FF
 
   link.click();
+  return true;
 }
 
 expensesForm.addEventListener("submit", function (e) {
@@ -188,6 +189,19 @@ function submitExpenseClickEvent() {
 
 function cancelExpenseAdd() {
   hidePopupModal(false);
+}
+
+function resetFinalData() {
+  var promptRes = confirm('Are you sure to delete all the existing records');
+  if (promptRes) {
+    if (downloadFinalData()) {
+      expensesDataCacheData = [];
+      displayExepnsesData();
+    } else {
+      expensesDataCacheData = [];
+      displayExepnsesData();
+    }
+  }
 }
 
 function displayExepnsesData() {

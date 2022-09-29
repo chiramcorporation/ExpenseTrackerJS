@@ -168,3 +168,8 @@ p a {
   border: 3px solid #000;
   color: #000;
 }
+
+.float-right {
+  float: right;
+  right: 50px;
+}
