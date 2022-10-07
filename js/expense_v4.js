@@ -177,9 +177,14 @@ function submitExpenseClickEvent() {
       if (field === "newExpenseDate" && fieldValue) {
         newExpenseObj.dateOfExpense = fieldValue;
       } else if (field === "newExpenseDesc" && fieldValue) {
-        newExpenseObj.expenseDescription = fieldValue;
+        newExpenseObj.expenseDescription = fieldValue.replaceAll(',',';');
       } else if (field === "newExpenseAmount" && fieldValue) {
-        newExpenseObj.expenseAmount = fieldValue;
+        if (isNaN(fieldValue)) {
+          newExpenseObj.expenseAmount = 0;
+          alert('Entered invalid amount');
+        } else {
+          newExpenseObj.expenseAmount = fieldValue;
+        }
       }
     }
   });
