@@ -18,7 +18,8 @@
 body {
     box-sizing: border-box;
     background: linear-gradient(to top, #f8dd99 70%, #F9E2A8 30%);
-    padding: 0 40px 40px 40px;
+    padding: 0;
+    margin: 0;
   }
   body::after {
     content: '';
@@ -27,14 +28,20 @@ body {
   }
 .success-message-box {
   border: 1px solid rgb(112 235 112);
-  min-width: 200px!important;
   width: auto;
   color: rgb(112 235 112);
-  position: absolute;
-  bottom: 0;
+  position: relative;
   padding: 0.1rem 0.5rem;
   font-size: 12px;
+  display: inline-block;
+  margin-top: 0.25rem;
 }
+
+[aria-hidden="false"][hidden] {
+  display: initial;
+}
+
+[hidden] { display: none !important; }
 
 .button {
   background-color: #4CAF50; /* Green */
@@ -44,7 +51,7 @@ body {
   text-align: center;
   text-decoration: none;
   font-size: 14px;
-  margin: 2px 1px;
+  margin: 2px 0px;
   cursor: pointer;
   border-radius: 3px;
   box-shadow: -1px 1px 3px 0px rgb(100 100 100 / 50%);
@@ -78,18 +85,17 @@ body {
 }
 
 .content {
-  box-shadow: 0 0 40px rgb(0 0 0 / 15%);
-  background: white;
-  margin: 50px auto 0;
-  padding: 0.5rem 0.5rem 2rem;
+  /* background: white; */
+  margin:0 auto;
+  /* padding: 0.5rem 0.5rem 2rem; */
+  background: linear-gradient(to top, #f8dd99 70%, #F9E2A8 30%);
 }
 
 form {
   position: relative;
   margin: 0;
-  padding-bottom: 20px;
   padding-top: 0.25rem;
-  margin-bottom: 0.5rem;
+  min-height: 100px;
 }
 
 form > input {
@@ -172,4 +178,65 @@ p a {
 .float-right {
   float: right;
   right: 50px;
+}
+
+#displaySection {  
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.top-banner {
+  height: 100px;
+  margin: 0.5rem;
+  opacity:70%;
+}
+
+.left-banner {
+  width: 135px;
+  margin: 0 0.5rem;
+  opacity:70%;
+}
+
+.right-banner {
+  width: 325px;
+  margin: 0 0.5rem;
+  opacity:70%;
+}
+
+.main-content {
+  display: flex;
+}
+
+.container-fluid {
+  background: white;
+  width: calc(100% - 476px);
+  box-shadow: 0 0 40px rgb(0 0 0 / 15%);
+  padding: 6px;
+}
+
+footer {
+  margin-top: 0.5rem;
+  padding: 8px;
+  text-align: center;
+  opacity:70%;
+}
+
+@media only screen and (max-width: 1040px) {
+  .main-content {
+    display: block;
+  }
+  .container-fluid {
+    width: calc(100% - 28px);
+    margin: 0 0.5rem;
+  }
+  .left-banner {
+    display: none;
+  }
+  .right-banner {
+    min-height: 100px;
+    height: auto;
+    margin: 0.5rem 0.5rem 0;
+    width: calc(100% - 1rem);
+  }
 }
