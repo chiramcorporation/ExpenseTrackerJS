@@ -1,77 +1,109 @@
 <!DOCTYPE HTML>
-<html>
+<html lang="en">
 
 <head>
-  <title>ExpenseTrackerJS</title>
+  <title>ExpenseTrackerJS — Chiram</title>
+  <!-- SEO -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="ExpenseTrackerJS by Chiram — Track, upload, and manage your expenses with ease.">
+  <!-- Cache control — forces revalidation on every request -->
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Favicon -->
   <link rel="shortcut icon" type="image/x-icon" href="favicon.png" />
-  <link rel="stylesheet" href="css/expense_v4.css">
+
+  <!-- Google Fonts (Chiram Design System) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <!--
+    === CACHE-MANAGED ASSETS ===
+    version.js  — defines APP_VERSION with per-asset version strings.
+    loader.js   — reads APP_VERSION and dynamically injects CSS + JS
+                  with ?v=<version> cache-busting query params.
+
+    To force a cache refresh after editing expense_v4.css or expense_v4.js:
+      1. Open  js/version.js
+      2. Bump  assets['css/expense_v4.css']  or  assets['js/expense_v4.js']
+      3. Save — browsers will treat the new URL as a fresh resource.
+
+    DO NOT add hard-coded <link> or <script> tags for managed assets below.
+  -->
+  <script src="js/version.js"></script>
+  <script src="js/loader.js"></script>
 </head>
 
 <body>
   <div class="content">
-    <div class="top-banner"></div>
+    <!-- Header -->
+    <header class="header-section" id="headerSection">
+      <h1>Chiram</h1>
+      <span class="header-tagline">Expense Tracker</span>
+    </header>
+
     <div class="main-content">
       <div class="left-banner"></div>
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-12">
-          <section id="headerSection" class="header-section">
-            <h1>Chiram</h1>
-          </section>
-          <section id="leftSection" class="left-section"></section>
-        </div>
-        <div class="col-12">
-          <section id="mainSection" class="main-section">
-            <!-- Expenses File/Data Section -->
-            <h3 class="inline-link">
-              Click the Add button to Add new Expense record.
-            </h3>
-            <span class="inline-tab-space"></span>
-            <div id="expensesAddButtonForm">
-              <input type="submit" value="Add Expense" class="button button2" onclick="addExpenseClickEvent();">
-              <div id="expensesAddOpsMessage" class="success-message-box" hidden></div>
-            </div>
-          </section>
-        </div>
-        <div class="col-12">
-          <section id="mainSection" class="main-section">
-            <!-- Expenses File/Data Section -->
-            <h3 class="inline-link">
-              Choose a file to upload the Expenses data CSV.
-              <p>
-                <a href="javascript:downloadExpensesTemplate()">Download </a>
-                the Sample Template for Expenses
-              </p>
-            </h3>
-            <span class="inline-tab-space"></span>
-            <form id="expensesForm">
-              <input type="file" id="expensesUploadFile" accept=".csv">
-              <input type="submit" value="Submit" class="button button2">
-              <div id="expensesFileUploadMessage" class="success-message-box" hidden></div>
-            </form>
+      <div class="container-fluid">
+        <div class="row">
+
+          <!-- Add Expense -->
+          <div class="col-12">
+            <section id="addExpenseSection" class="main-section reveal">
+              <h3 class="inline-link">
+                Click the <strong>Add Expense</strong> button to add a new record.
+              </h3>
+              <span class="inline-tab-space"></span>
+              <div id="expensesAddButtonForm">
+                <input type="submit" value="Add Expense" class="button button2" onclick="addExpenseClickEvent();">
+                <div id="expensesAddOpsMessage" class="success-message-box" hidden></div>
+              </div>
             </section>
-        </div>
-        <div class="col-12">
-          <section class="main-section">
-            <h3 class="inline-link">Final Expenses after processing:</h3>
-            <input id="finalDownloadButton" type="button" value="Download" class="button" onclick="downloadFinalData();">
-            <span id="totalNumberOfExpenses">&nbsp; &nbsp; &nbsp; <b>Number Expenses: </b></span>
-            <span id="totalExpenseAmount">&nbsp; &nbsp; &nbsp; <b>Total Expense Amount: </b></span>
-            <input id="resetButton" type="button" value="Reset" class="button float-right" onclick="resetFinalData();">
-            <div id="displaySection">No Records to Display</div>
-          </section>
+          </div>
+
+          <!-- Upload CSV -->
+          <div class="col-12">
+            <section id="uploadSection" class="main-section reveal">
+              <h3 class="inline-link">
+                Choose a file to upload the Expenses data CSV.
+                <p>
+                  <a href="javascript:downloadExpensesTemplate()">Download</a>
+                  the Sample Template for Expenses
+                </p>
+              </h3>
+              <span class="inline-tab-space"></span>
+              <form id="expensesForm">
+                <input type="file" id="expensesUploadFile" accept=".csv">
+                <input type="submit" value="Submit" class="button button2">
+                <div id="expensesFileUploadMessage" class="success-message-box" hidden></div>
+              </form>
+            </section>
+          </div>
+
+          <!-- Results Table -->
+          <div class="col-12">
+            <section id="resultsSection" class="main-section reveal">
+              <h3 class="inline-link">Final Expenses after processing:</h3>
+              <input id="finalDownloadButton" type="button" value="Download" class="button" onclick="downloadFinalData();">
+              <span id="totalNumberOfExpenses">&nbsp; &nbsp; &nbsp; <b>Number Expenses: </b></span>
+              <span id="totalExpenseAmount">&nbsp; &nbsp; &nbsp; <b>Total Expense Amount: </b></span>
+              <input id="resetButton" type="button" value="Reset" class="button float-right" onclick="resetFinalData();">
+              <div id="displaySection">No Records to Display</div>
+            </section>
+          </div>
+
         </div>
       </div>
+      <div class="right-banner"></div>
     </div>
-    <div class="right-banner"></div>
-    </div>
-    <footer>Copyright by @Chiram. All Rights Reserved.</footer>
+
+    <footer>Copyright &copy; Chiram. All Rights Reserved.</footer>
   </div>
+
+  <!-- Add Expense Popup Modal -->
   <div id="popupModalContent" class="popup-modal-content">
     <div class="popup-modal-content-body">
       <div class="popup-modal-close-icon">
@@ -79,19 +111,13 @@
       </div>
       <div class="row">
         <div class="col-12">
-          <section id="mainSection" class="main-section">
-            <!-- Expenses File/Data Section -->
-            <h2 style="color: brown">
-              Enter below details and Submit
-            </h2>
+          <section class="main-section">
+            <h2>Enter Expense Details</h2>
             <span class="inline-tab-space"></span>
             <div id="expensesAddForm">
-              <!-- <label for="newExpenseDate">Expense Date: </label> -->
-              <input id="newExpenseDate" name="newExpenseDate" type="date" class="form-input-box"><br><br>
-              <!-- <label for="newExpenseDesc">Expense Description: </label> -->
-              <input placeholder="Expense Description" id="newExpenseDesc" name="newExpenseDesc" type="text" class="form-input-box"><br><br>
-              <!-- <label for="newExpenseAmount">Expense Amount: </label> -->
-              <input id="newExpenseAmount" placeholder="Expense Amount" name="newExpenseAmount" type="number" min="1" max="10000000" class="form-input-box"><br><br>
+              <input id="newExpenseDate"   name="newExpenseDate"   type="date"   class="form-input-box" placeholder="Expense Date"><br><br>
+              <input id="newExpenseDesc"   name="newExpenseDesc"   type="text"   class="form-input-box" placeholder="Expense Description"><br><br>
+              <input id="newExpenseAmount" name="newExpenseAmount" type="number" class="form-input-box" placeholder="Expense Amount" min="1" max="10000000"><br><br>
               <input type="button" value="Submit" class="button button2" onclick="submitExpenseClickEvent();">
               <div id="expensesAddStatusMessage" class="success-message-box" hidden></div>
             </div>
@@ -101,7 +127,6 @@
     </div>
   </div>
 
-  <script type="text/javascript" src="js/expense_v4.js"></script>
 </body>
 
 </html>

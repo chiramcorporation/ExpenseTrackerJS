@@ -1,101 +1,321 @@
-.inline-link {
-    display: inline;
-    vertical-align: top;
-    line-height: 28px;
-    color: #cc6611;
-    font-size: 16px;
+/*
+ * expense_v4.css — Chiram Design System (Dark Premium + Glassmorphism + Orange Brand)
+ * Theme defined in THEME.md — do NOT override tokens here; edit THEME.md then update tokens below.
+ * Cache-busting: bump 'css/expense_v4.css' in js/version.js after any change.
+ */
+
+/* ============================================================
+   1. Google Fonts
+   Imported via <link> in index.html for best preconnect support.
+   ============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;800&display=swap');
+
+/* ============================================================
+   2. CSS Design Tokens (THEME.md §2)
+   ============================================================ */
+:root {
+  /* Brand */
+  --brand:         #cc6611;
+  --brand-light:   #e07830;
+  --brand-glow:    rgba(204, 102, 17, 0.35);
+
+  /* Backgrounds */
+  --bg-dark:       #0f0e0c;
+  --bg-card:       rgba(255, 255, 255, 0.05);
+  --bg-card-hover: rgba(255, 255, 255, 0.09);
+
+  /* Borders */
+  --border-glass:  rgba(255, 255, 255, 0.10);
+
+  /* Text */
+  --text-primary:  #f0ede8;
+  --text-secondary:#a89880;
+  --text-muted:    #6b5f52;
+
+  /* Shape */
+  --radius-card:   16px;
+  --radius-btn:    8px;
+
+  /* Effects */
+  --shadow-glow:   0 0 40px rgba(204, 102, 17, 0.15);
+  --transition:    0.25s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Fonts */
+  --font-main:     'Inter', sans-serif;
+  --font-display:  'Outfit', sans-serif;
 }
 
-.inline-link p {
-  color: #000;
-  display: inline;
+/* ============================================================
+   3. Reset & Base (THEME.md §4)
+   ============================================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
 }
 
-.inline-tab-space {
-    margin-right: 10px;
-    margin-left: 10px;
+html {
+  scroll-behavior: smooth;
 }
+
 body {
-    box-sizing: border-box;
-    background: linear-gradient(to top, #f8dd99 70%, #F9E2A8 30%);
-    padding: 0;
-    margin: 0;
-  }
-  body::after {
-    content: '';
-    display: table;
-    clear: both;
-  }
-.success-message-box {
-  border: 1px solid rgb(112 235 112);
-  width: auto;
-  color: rgb(112 235 112);
-  position: relative;
-  padding: 0.1rem 0.5rem;
-  font-size: 12px;
-  display: inline-block;
-  margin-top: 0.25rem;
-}
-
-[aria-hidden="false"][hidden] {
-  display: initial;
-}
-
-[hidden] { display: none !important; }
-
-.button {
-  background-color: #4CAF50; /* Green */
-  border: none;
-  color: white;
-  padding: 5px 16px;
-  text-align: center;
-  text-decoration: none;
-  font-size: 14px;
-  margin: 2px 0px;
-  cursor: pointer;
-  border-radius: 3px;
-  box-shadow: -1px 1px 3px 0px rgb(100 100 100 / 50%);
-}
-
-.button2 {background-color: #008CBA;} /* Blue */
-.button3 {background-color: #f44336;} /* Red */ 
-.button4 {background-color: #e7e7e7; color: black;} /* Gray */ 
-.button5 {background-color: #555555;} /* Black */
-
-.header-section {
-  background: #cc6611;
-  padding: 1rem 1.5rem;
-}
-
-.header-section h1 {
-  /* height: 10vh; */
   margin: 0;
+  padding: 0;
+  font-family: var(--font-main);
+  font-size: 16px;
+  color: var(--text-primary);
+  background-color: var(--bg-dark);
+  background-image:
+    /* Top-center orange glow */
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(204,102,17,0.18) 0%, transparent 60%),
+    /* Bottom-right subtle warm glow */
+    radial-gradient(ellipse 60% 40% at 80% 100%, rgba(204,102,17,0.08) 0%, transparent 50%);
+  min-height: 100vh;
+}
+
+body::after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+/* ============================================================
+   4. Typography (THEME.md §6)
+   ============================================================ */
+h1 {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -1px;
+  margin: 0;
+  /* Gradient text */
+  background: linear-gradient(135deg, #ffffff 0%, #e0cdb8 60%, var(--brand) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 3vw, 1.6rem);
+  font-weight: 700;
+  color: var(--brand);
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+  margin: 0 0 1rem;
+}
+
+h3 {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.35;
+  margin: 0 0 0.5rem;
+}
+
+p {
+  font-family: var(--font-main);
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  font-weight: 400;
+  margin: 0.25rem 0;
+}
+
+p a {
+  color: var(--brand-light);
+  padding: 0 0.25rem;
+  text-decoration: none;
+  transition: color var(--transition);
+}
+p a:hover {
+  color: var(--brand);
+}
+
+a {
+  color: var(--brand-light);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+a:hover {
+  color: var(--brand);
+}
+
+/* ============================================================
+   5. Layout
+   ============================================================ */
+.content {
+  margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  display: flex;
+  flex: 1;
+}
+
+.container-fluid {
+  flex: 1;
+  width: 100%;
+  padding: 0 0.5rem 1rem;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.col-12 {
+  width: 100%;
+}
+
+/* ============================================================
+   6. Sticky Glass Header (THEME.md §9)
+   ============================================================ */
+.header-section {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding: 0 2rem;
+  height: 64px;
+  background: rgba(15, 14, 12, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-glass);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.header-tagline {
+  font-family: var(--font-main);
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   7. Glassmorphism Card / Section (THEME.md §5)
+   ============================================================ */
+.main-section {
+  position: relative;
+  overflow: hidden;
+  background: var(--bg-card);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-card);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 1.25rem 1.5rem;
+  margin: 0.6rem 0;
+  transition: all var(--transition);
+  box-shadow: var(--shadow-glow);
+}
+
+.main-section::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--brand), transparent);
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+
+.main-section:hover {
+  background: var(--bg-card-hover);
+  border-color: rgba(204, 102, 17, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.4), var(--shadow-glow);
+}
+
+.main-section:hover::before {
+  opacity: 1;
+}
+
+/* ============================================================
+   8. Buttons (THEME.md §7)
+   ============================================================ */
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.55rem 1.3rem;
+  border-radius: var(--radius-btn);
+  font-family: var(--font-main);
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  white-space: nowrap;
+  transition: all var(--transition);
+  /* Default: green primary */
+  background: linear-gradient(135deg, #2e7d32 0%, #43a047 100%);
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(46, 125, 50, 0.35);
+  margin: 2px 4px 2px 0;
+}
+.button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(46, 125, 50, 0.5);
+}
+
+/* button2 — brand orange (CTAs) */
+.button2 {
+  background: linear-gradient(135deg, var(--brand) 0%, var(--brand-light) 100%);
+  box-shadow: 0 4px 16px rgba(204, 102, 17, 0.4);
   color: #fff;
 }
-
-.left-section {
-  float: left;
-  /* width: 10vh;
-  height: 100vh; */
+.button2:hover {
+  box-shadow: 0 8px 28px rgba(204, 102, 17, 0.55);
 }
 
-.main-section {
-  /* float: right; */
-  padding: 0.5rem 1rem;
+/* button3 — danger red */
+.button3 {
+  background: linear-gradient(135deg, #b71c1c 0%, #e53935 100%);
+  box-shadow: 0 4px 16px rgba(183, 28, 28, 0.35);
+  color: #fff;
+}
+.button3:hover {
+  box-shadow: 0 8px 24px rgba(183, 28, 28, 0.5);
 }
 
-.content {
-  /* background: white; */
-  margin:0 auto;
-  /* padding: 0.5rem 0.5rem 2rem; */
-  background: linear-gradient(to top, #f8dd99 70%, #F9E2A8 30%);
+/* button4 — ghost / outline */
+.button4 {
+  background: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--border-glass);
+  box-shadow: none;
+}
+.button4:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--brand);
+  color: var(--brand);
+  box-shadow: none;
 }
 
+/* button5 — dark */
+.button5 {
+  background: rgba(255,255,255,0.08);
+  color: var(--text-primary);
+  box-shadow: none;
+}
+.button5:hover {
+  background: rgba(255,255,255,0.14);
+}
+
+/* ============================================================
+   9. Form Elements
+   ============================================================ */
 form {
   position: relative;
   margin: 0;
   padding-top: 0.25rem;
-  min-height: 100px;
+  min-height: 60px;
 }
 
 form > input {
@@ -103,141 +323,333 @@ form > input {
   margin-bottom: 0.35rem;
 }
 
-table {
+.form-input-box {
+  display: block;
   width: 100%;
-  margin-top: 0.5rem;
+  max-width: 340px;
+  padding: 0.55rem 0.9rem;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-btn);
+  color: var(--text-primary);
+  font-family: var(--font-main);
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color var(--transition), box-shadow var(--transition);
 }
 
-p {
-  margin: 0.25rem 0;
-  font-size: 14px;
+.form-input-box::placeholder {
+  color: var(--text-muted);
+}
+
+.form-input-box:focus {
+  border-color: var(--brand);
+  box-shadow: 0 0 0 3px rgba(204, 102, 17, 0.18);
+}
+
+input[type="file"] {
+  color: var(--text-secondary);
+  font-family: var(--font-main);
+  font-size: 0.85rem;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+}
+
+input[type="date"] {
+  color-scheme: dark;
+}
+
+/* ============================================================
+   10. Inline helpers
+   ============================================================ */
+.inline-link {
+  display: inline;
+  vertical-align: top;
+  line-height: 1.5;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  font-family: var(--font-display);
   font-weight: 600;
 }
 
-p a {
-  color: #008cba;
-  padding: 0 0.25rem;
+.inline-link strong {
+  color: var(--brand-light);
 }
 
-.popup-modal-content {
-  z-index: 100;
-  position: fixed; /* Sit on top of the page content */
-  display: none; /* Hidden by default */
-  width: 100%; /* Full width (cover the whole page) */
-  height: 100%; /* Full height (cover the whole page) */
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0,0,0,0.8); /* Black background with opacity */
-}
-
-.popup-modal-content-body {
-  z-index: 102;
-  position: fixed; /* Sit on top of the page content */
-  width: 50%; /* Full width (cover the whole page) */
-  height: 50%; /* Full height (cover the whole page) */
-  top: 25%;
-  left: 25%;
-  right: 25%;
-  bottom: 25%;
-  background-color: white; /* Black background with opacity */
-  color: #cc6611;
-  font-weight: bold;
-}
-
-.popup-modal-content-body .form-input-box {
+.inline-link p {
+  color: var(--text-secondary);
   display: inline;
-  vertical-align: top;
-  line-height: 20px;
-  color: #cc6611;
-  font-size: 14px;
+  font-size: 0.88rem;
 }
 
-.popup-modal-close-icon .close-icon {
-  float: right;
-}
-
-.close-icon {
-  margin-top: 5px;
-  margin-right: 5px;
-  cursor: pointer;
-  border-radius: 50%;
-  border: 1px solid #777;
-  width: 16px;
-  height: 16px;
-  padding: 3px;
-  font-size: 12px;
-  color: #777;
-  text-align: center;
+.inline-tab-space {
+  margin-right: 10px;
+  margin-left: 10px;
 }
 
 .float-right {
   float: right;
-  right: 50px;
 }
 
-#displaySection {  
+/* ============================================================
+   11. Status / Message Box
+   ============================================================ */
+.success-message-box {
+  border: 1px solid rgba(112, 235, 112, 0.5);
+  width: auto;
+  color: rgb(112, 235, 112);
+  position: relative;
+  padding: 0.2rem 0.75rem;
+  font-size: 0.8rem;
+  font-family: var(--font-main);
+  display: inline-block;
+  margin-top: 0.4rem;
+  border-radius: var(--radius-btn);
+  background: rgba(112, 235, 112, 0.07);
+}
+
+/* ============================================================
+   12. Data Table
+   ============================================================ */
+table {
+  width: 100%;
+  margin-top: 0.75rem;
+  border-collapse: collapse;
+  font-family: var(--font-main);
+  font-size: 0.875rem;
+}
+
+table th {
+  background: rgba(204, 102, 17, 0.15);
+  color: var(--brand-light);
+  font-weight: 600;
+  padding: 0.6rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border-glass);
+}
+
+table td {
+  padding: 0.55rem 1rem;
+  color: var(--text-secondary);
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  transition: background var(--transition);
+}
+
+table tr:hover td {
+  background: rgba(255,255,255,0.04);
+  color: var(--text-primary);
+}
+
+table td a {
+  color: #e57373;
+  font-size: 0.8rem;
+  font-weight: 500;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  border: 1px solid rgba(229, 115, 115, 0.3);
+  transition: all var(--transition);
+}
+table td a:hover {
+  background: rgba(229,115,115,0.12);
+  border-color: #e57373;
+  color: #ff8a80;
+}
+
+#displaySection {
   width: 100%;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
+  color: var(--text-muted);
+  font-style: italic;
+  padding: 0.5rem 0;
 }
 
+/* ============================================================
+   13. Summary Spans
+   ============================================================ */
+#totalNumberOfExpenses,
+#totalExpenseAmount {
+  font-family: var(--font-main);
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+}
+
+#totalNumberOfExpenses b,
+#totalExpenseAmount b {
+  color: var(--brand-light);
+}
+
+/* ============================================================
+   14. Popup Modal (THEME.md glassmorphism)
+   ============================================================ */
+.popup-modal-content {
+  z-index: 200;
+  position: fixed;
+  display: none;
+  width: 100%;
+  height: 100%;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.popup-modal-content-body {
+  position: fixed;
+  z-index: 201;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(520px, calc(100% - 2rem));
+  background: rgba(20, 18, 15, 0.95);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 24px 64px rgba(0,0,0,0.6), var(--shadow-glow);
+  color: var(--text-primary);
+  font-weight: normal;
+  padding: 1.5rem;
+  animation: modalIn 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes modalIn {
+  from { opacity: 0; transform: translate(-50%, -48%) scale(0.97); }
+  to   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+
+.popup-modal-content-body .main-section {
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  box-shadow: none;
+  transform: none;
+}
+
+.popup-modal-content-body .main-section:hover {
+  transform: none;
+  background: transparent;
+}
+
+.popup-modal-content-body .form-input-box {
+  max-width: 100%;
+}
+
+.popup-modal-close-icon {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 0.75rem;
+}
+
+.popup-modal-close-icon .close-icon {
+  float: none;
+}
+
+.close-icon {
+  cursor: pointer;
+  border-radius: 50%;
+  border: 1px solid var(--border-glass);
+  width: 28px;
+  height: 28px;
+  font-size: 12px;
+  color: var(--text-muted);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition);
+}
+
+.close-icon:hover {
+  border-color: var(--brand);
+  color: var(--brand-light);
+  background: rgba(204,102,17,0.1);
+}
+
+/* ============================================================
+   15. Scroll-reveal animation (THEME.md §10)
+   ============================================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ============================================================
+   16. Sidebar banners (kept structurally, visually minimal)
+   ============================================================ */
 .top-banner {
-  height: 100px;
-  margin: 0.5rem;
-  opacity:70%;
+  display: none; /* removed from visual layout; keep class for compat */
 }
 
 .left-banner {
-  width: 135px;
-  margin: 0 0.5rem;
-  opacity:70%;
+  width: 0;
+  display: none;
 }
 
 .right-banner {
-  width: 325px;
-  margin: 0 0.5rem;
-  opacity:70%;
+  width: 0;
+  display: none;
 }
 
-.main-content {
-  display: flex;
-}
-
-.container-fluid {
-  background: white;
-  width: calc(100% - 476px);
-  box-shadow: 0 0 40px rgb(0 0 0 / 15%);
-  padding: 6px;
-}
-
+/* ============================================================
+   17. Footer
+   ============================================================ */
 footer {
-  margin-top: 0.5rem;
-  padding: 8px;
+  padding: 1.25rem 2rem;
   text-align: center;
-  opacity:70%;
+  color: var(--text-muted);
+  font-family: var(--font-main);
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  border-top: 1px solid var(--border-glass);
+  margin-top: auto;
 }
 
-@media only screen and (max-width: 1040px) {
-  .main-content {
-    display: block;
+/* ============================================================
+   18. Visibility helpers
+   ============================================================ */
+[aria-hidden="false"][hidden] {
+  display: initial;
+}
+
+[hidden] { display: none !important; }
+
+/* ============================================================
+   19. Responsive (THEME.md §14)
+   ============================================================ */
+@media (max-width: 768px) {
+  .header-section {
+    padding: 0 1.25rem;
+    height: 56px;
   }
-  .container-fluid {
-    width: calc(100% - 28px);
-    margin: 0 0.5rem;
-  }
-  .left-banner {
+
+  .header-tagline {
     display: none;
   }
-  .right-banner {
-    min-height: 100px;
-    height: auto;
-    margin: 0.5rem 0.5rem 0;
-    width: calc(100% - 1rem);
+
+  .main-section {
+    padding: 1rem 1.1rem;
+    border-radius: 12px;
+    margin: 0.5rem 0;
   }
+
   .popup-modal-content-body {
-    width: calc(100% - 30px);
-    left: 15px;
+    padding: 1.25rem;
+  }
+
+  h1 {
+    font-size: clamp(1.4rem, 6vw, 2rem);
+  }
+
+  table th,
+  table td {
+    padding: 0.45rem 0.6rem;
+    font-size: 0.82rem;
   }
 }

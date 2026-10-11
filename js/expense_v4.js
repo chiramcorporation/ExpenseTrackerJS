@@ -83,6 +83,23 @@ window.onload = function() {
     expensesFileMessageEelement.hidden = false;
     expensesFileUploaded = true;
   }
+
+  // ── Scroll-reveal animation (THEME.md §10) ────────────────────────────────
+  // Toggles the `.visible` class on elements with `.reveal` as they enter the
+  // viewport. The CSS transition defined in expense_v4.css does the animation.
+  var revealObserver = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.reveal').forEach(function (el) {
+    revealObserver.observe(el);
+  });
+  // ─────────────────────────────────────────────────────────────────────────
 };
 
 function csvToArray(str, delimiter = ",") {
